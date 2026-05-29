@@ -64,3 +64,19 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+
+// Admin Dashboard Route
+Route::middleware('auth')->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+});
+
+// Admin Login Route
+Route::middleware('guest')->group(function () {
+    Route::get('/admin/login', [AdminLoginController::class, 'create'])->name('admin.login');
+    Route::post('/admin/login', [AdminLoginController::class, 'store']);
+});
+
+// Admin Logout Route
+Route::post('/admin/logout', [AdminLoginController::class, 'destroy'])->name('admin.logout');
+
